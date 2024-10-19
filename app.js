@@ -156,10 +156,10 @@ function ev_connected(status) {
     console.log("[McIntosh Extension] Connected");
 
     svc_status.set_status("Connected to McIntosh", false);
-
-    control.set_volume(mysettings.initialvolume);
+ 
     control.set_source(mysettings.setsource);
-
+    control.set_volume(mysettings.initialvolume);
+    
     mcintosh.volume_control = svc_volume_control.new_device({
         state: {
             display_name: "McIntosh",
@@ -197,11 +197,13 @@ function ev_connected(status) {
         convenience_switch: function (req) {
             if (this.state.status == "standby") {
                 control.power_on();
-                control.set_source(mysettings.setsource);
+
                 setTimeout(() => {
+                    control.set_source(mysettings.setsource);
+                    control.set_volume(mysettings.initialvolume);
                     req.send_complete("Success");
                 }, mysettings.startuptime * 1000);
-                control.set_volume(mysettings.initialvolume);
+                
             } else {
                 control.set_source(mysettings.setsource);
                 req.send_complete("Success");
@@ -213,7 +215,6 @@ function ev_connected(status) {
             req.send_complete("Success");
         }
     });
-
 }
 
 function ev_disconnected(status) {
