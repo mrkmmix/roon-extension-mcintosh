@@ -1,0 +1,8 @@
+# MC53 adapter on the "xhci-hcd.0" root port
+SUBSYSTEM=="tty", ENV{ID_PATH}=="platform-xhci-hcd.0-usb-0:1:1.0", SYMLINK+="rs232_mc53"
+
+# DB2 adapter on the "xhci-hcd.1" root port
+SUBSYSTEM=="tty", ENV{ID_PATH}=="platform-xhci-hcd.1-usb-0:1:1.0", SYMLINK+="rs232_db2"
+
+# execute scripts on DB2 adapter connect/disconnect
+ACTION=="add|remove", SUBSYSTEM=="sound", ENV{ID_VENDOR_ID}=="2afd", ENV{ID_MODEL_ID}=="000b", RUN+="/usr/local/bin/on_ma2_disconnect.py"

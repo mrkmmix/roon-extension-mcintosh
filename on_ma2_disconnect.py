@@ -4,7 +4,7 @@ import serial
 import time
 
 def main():
-    serial_port = '/dev/ttyUSB1'
+    serial_port = '/dev/rs232_db2'
     baud_rate = 9600
 
     try:
