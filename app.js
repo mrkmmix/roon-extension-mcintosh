@@ -100,6 +100,8 @@ var svc_settings = new RoonApiSettings(roon, {
                 force = true;
             if (oldport != mysettings.serialport)
                 force = true;
+            if (mcintosh.control.is_connected() == false)
+                force = true;
             if (force)
                 setup();
             roon.save_config("settings", mysettings);
